@@ -888,6 +888,7 @@ class ConnectionHandler:
             else:
                 content = response
 
+            # self.logger.bind(tag=TAG).info(f"大模型返回第一个Token: {content}")
             # 在llm回复中获取情绪表情，一轮对话只在开头获取一次
             if emotion_flag and content is not None and content.strip():
                 asyncio.run_coroutine_threadsafe(
