@@ -36,7 +36,8 @@ class ASRProviderBase(ABC):
     def asr_text_priority_thread(self, conn):
         while not conn.stop_event.is_set():
             try:
-                message = conn.asr_audio_queue.get(timeout=1)
+                # message = conn.asr_audio_queue.get(timeout=1)
+                message = conn.asr_audio_queue.get()
                 future = asyncio.run_coroutine_threadsafe(
                     handleAudioMessage(conn, message),
                     conn.loop,
