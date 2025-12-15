@@ -46,6 +46,8 @@ class LLMProvider(LLMProviderBase):
         if model_key_msg:
             logger.bind(tag=TAG).error(model_key_msg)
         self.client = openai.OpenAI(api_key=self.api_key, base_url=self.base_url, timeout=httpx.Timeout(self.timeout))
+        # logger.bind(tag=TAG).info(f"llm_base_url: {self.base_url}")
+
 
     @staticmethod
     def normalize_dialogue(dialogue):
@@ -122,6 +124,11 @@ class LLMProvider(LLMProviderBase):
                     request_params[key] = value
 
             stream = self.client.chat.completions.create(**request_params)
+
+            # stream = self.client.chat.completions.create(
+            #     model=self.model_name, messages=dialogue, stream=True, tools=functions, tool_choice='auto'
+            # )
+            
 
             for chunk in stream:
                 if getattr(chunk, "choices", None):
