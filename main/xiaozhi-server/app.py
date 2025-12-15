@@ -122,6 +122,10 @@ async def main():
         "=============================================================\n"
     )
 
+    logger.bind(tag=TAG).info(
+        config
+        )
+
     try:
         await wait_for_exit()  # 阻塞直到收到退出信号
     except asyncio.CancelledError:
